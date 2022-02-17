@@ -13,8 +13,12 @@
 
 .item {
     margin-right: 1em;
-    color: #FFF;
+}
+
+.item a {
     text-decoration: none;
+    color: #FFF;
+    padding: .5em;
 }
 
 .item a:hover {
