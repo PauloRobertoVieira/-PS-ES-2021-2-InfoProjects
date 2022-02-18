@@ -1,17 +1,6 @@
 {
   "projects": [
     {
-      "name": "projeto teste",
-      "budget": "5000",
-      "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
-      },
-      "infoproject": 0,
-      "services": [],
-      "id": 1
-    },
-    {
       "name": "Contratar PO",
       "budget": "18.500",
       "category": {
