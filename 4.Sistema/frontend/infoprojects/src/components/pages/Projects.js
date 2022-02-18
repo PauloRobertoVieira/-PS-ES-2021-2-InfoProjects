@@ -3,8 +3,8 @@ import { useState, useEffect } from "react"
 
 import Message from "../layout/Message"
 import Container from "../layout/Container"
+import Loading from "../layout/Loading"
 import LinkButton from "../layout/LinkButton"
-
 
 import styles from './Projects.module.css'
 import ProjectCard from "../project/ProjectCard"
@@ -12,6 +12,7 @@ import ProjectCard from "../project/ProjectCard"
 function Projects(){
 
     const [projects, setProjects] = useState([])
+    const [removeLoading, setRemoveLoanding] = useState(false)
 
     const location = useLocation()
     let message = ''
