@@ -7,7 +7,7 @@
         "id": "4",
         "name": "Planejamento"
       },
-      "infoproject": 0,
+      "cost": 0,
       "services": [],
       "id": 3
     },
@@ -18,7 +18,7 @@
         "id": "1",
         "name": "Infra"
       },
-      "infoproject": 0,
+      "cost": 0,
       "services": [],
       "id": 4
     },
@@ -29,7 +29,7 @@
       },
       "name": "Promover estagiário",
       "budget": "3.000",
-      "infoproject": 0,
+      "cost": 0,
       "services": [],
       "id": 5
     },
@@ -40,7 +40,7 @@
       },
       "name": "Terceirizar UX",
       "budget": "10.000",
-      "infoproject": 0,
+      "cost": 0,
       "services": [],
       "id": 6
     }
