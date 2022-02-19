@@ -2,7 +2,7 @@
   "projects": [
     {
       "name": "Contratar PO",
-      "budget": "9.000",
+      "budget": "9000",
       "category": {
         "id": "4",
         "name": "Planejamento"
@@ -13,7 +13,7 @@
     },
     {
       "name": "Serviços Cloud",
-      "budget": "50.000",
+      "budget": "50000",
       "category": {
         "id": "1",
         "name": "Infra"
@@ -28,7 +28,7 @@
         "name": "Desenvolvimento"
       },
       "name": "Promover estagiário",
-      "budget": "3.000",
+      "budget": "3000",
       "cost": 0,
       "services": [],
       "id": 5
@@ -39,7 +39,7 @@
         "name": "Design"
       },
       "name": "Terceirizar UX",
-      "budget": "10.000",
+      "budget": "10000",
       "cost": 0,
       "services": [],
       "id": 6

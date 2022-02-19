@@ -6,9 +6,10 @@ import SubmitButton from '../form/SubmitButton'
 import styles from '../project/ProjectForm.module.css'
 
 
-function ServiceForm({ handleSubmit, btnText, projectData}){
+function ServiceForm({ handleSubmit, btnText, projectData }){
 
     const [service, setService] = useState({})
+
     function submit(e){
         e.preventDefault()
         projectData.services.push(service)
