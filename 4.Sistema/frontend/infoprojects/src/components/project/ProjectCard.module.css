@@ -2,7 +2,7 @@
     padding: 1em;
     border: 1px solid #7a7a7a;
     border-radius: 5px;
-    width: 24%;
+    width: 23%;
     margin: 0.5%;
 }
 
@@ -22,6 +22,7 @@
 
 .project_card p span {
     font-weight: bold;
+    
 }
 
 .category_text {
@@ -38,15 +39,16 @@
 }
 
 .category_text .infra {
-    background-color: #0000FF ;
+    background-color: #0000FF;
 }
 
 .category_text .desenvolvimento {
     background-color: #00FF00;
+
 }
 
 .category_text .design {
-    background-color: #FF1493	;
+    background-color: #FF1493;
 }
 
 .category_text .planejamento {

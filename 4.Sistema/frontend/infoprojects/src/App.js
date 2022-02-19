@@ -4,11 +4,13 @@ import Projects from './components/pages/Projects'
 import Contact from './components/pages/Contact'
 import Company from './components/pages/Company'
 import NewProject from './components/pages/NewProject'
+import Project from './components/pages/Project'
 
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 
 import Container from './components/layout/Container'
+
 
 function App() {
   return (
@@ -34,6 +36,10 @@ function App() {
 
           <Route path='/newproject'>
             <NewProject />
+          </Route>
+
+          <Route path='/project/:id'>
+            <Project />
           </Route>
 
         </Container>
