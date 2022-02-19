@@ -2,7 +2,7 @@
   "projects": [
     {
       "name": "Contratar PO",
-      "budget": "18.500",
+      "budget": "9.000",
       "category": {
         "id": "4",
         "name": "Planejamento"
@@ -27,7 +27,7 @@
         "id": "2",
         "name": "Desenvolvimento"
       },
-      "name": "Remanejar estagiário",
+      "name": "Promover estagiário",
       "budget": "3.000",
       "infoproject": 0,
       "services": [],
