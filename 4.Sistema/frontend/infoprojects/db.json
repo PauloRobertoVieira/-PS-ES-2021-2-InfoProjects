@@ -1,25 +1,21 @@
 {
   "projects": [
     {
-      "name": "Contratar PO",
-      "budget": "9000",
-      "category": {
-        "id": "4",
-        "name": "Planejamento"
-      },
-      "cost": 0,
-      "services": [],
-      "id": 3
-    },
-    {
       "name": "Serviços Cloud",
       "budget": "50000",
       "category": {
         "id": "1",
         "name": "Infra"
       },
-      "cost": 0,
-      "services": [],
+      "cost": 10000,
+      "services": [
+        {
+          "name": "Cloud Amazon",
+          "cost": "10000",
+          "description": "contratação serviço cloud mensal",
+          "id": "c3f5f3bc-6d76-4cdc-abb1-9eedb9363e74"
+        }
+      ],
       "id": 4
     },
     {
@@ -43,6 +39,17 @@
       "cost": 0,
       "services": [],
       "id": 6
+    },
+    {
+      "name": "Contratar PO",
+      "budget": "9000",
+      "category": {
+        "id": "4",
+        "name": "Planejamento"
+      },
+      "cost": 0,
+      "services": [],
+      "id": 7
     }
   ],
   "categories": [
