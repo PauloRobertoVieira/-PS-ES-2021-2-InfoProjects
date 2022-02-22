@@ -1,40 +1,56 @@
 const express = require('express')
 const app = express.Router()
 
-app.get('/', (req, res) => {
-    const projetos = [
-      {
-        id: 1,
-        name: 'Projeto1'
-      },
-      {
-        id: 2,
-        name: 'Projeto2'
-      }
-    ]
-      res.json(projetos)
-  })
-  
-  app.get('/:id', (req, res) => {
-    console.log(req.params)
-     res.send(`Return post ${req.params.id}`)
-  })
-  
-  app.delete('/:id', (req, res) => {
-    console.log(req.params)
-     res.send(`Delete post ${req.params.id}`)
-  })
-  
-  app.put('/:id', (req, res) => {
-    console.log(req.params)
-    const post = req.body
-     res.send(`UpDate post ${req.params.id}`)
-  })
-  
-  app.post('', (req, res) => {
-    console.log(req.body)
-    const post = req.body
-    res.send(`Save post ${post.id}`)
-  })
+const { query } = require("../db")
 
-  module.exports = app
+app.get('/', (req, res) => {
+  query("SELECT * FROM projeto ORDER BY name", (projetos) => {
+    res.json(projetos)
+  })
+})
+
+app.get('/:id', (req, res) => {
+  query("SELECT * FROM projeto WHERE ?", (projetos) => {
+    console.log(projetos)
+    if (projetos.length < 1) {
+      res.status(404).json({ message: "Projeto not found" })
+    } else {
+      res.json(projetos[0])
+    }
+
+  }, { id: req.params.id })
+
+})
+
+app.delete('/:id', (req, res) => {
+  query("DELETE FROM projeto WHERE ?", (results) => {
+    if (results.affectedRows < 1) {
+      res.status(404).json({ message: "Projeto not found" })
+    } else {
+      res.json({ message: "Projeto removido" })
+    }
+
+  }, { id: req.params.id })
+})
+
+app.put('/:id', (req, res) => {
+  console.log(req.params)
+  const post = req.body
+  res.send(`UpDate post ${req.params.id}`)
+})
+
+app.post('', (req, res) => {
+  console.log(req)
+  const post = req.body
+  query("INSERT INTO projeto SET ?", (results) => {
+    console.log(results)
+    if (results.affectedRows < 1) {
+      res.status(404).json({ message: "Projeto not found" })
+    } else {
+      res.json({ message: "Projeto removido" })
+    }
+
+  }, { name: post.name, budget: post.budget })
+})
+
+module.exports = app
