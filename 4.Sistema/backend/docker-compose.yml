@@ -13,3 +13,14 @@ services:
       - 3306:3306
     volumes:
       - ./db/:/var/lib/mysql
+  app:
+    build: .
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PWD: root
+      DB_NAME: prv_system
+    links:
+      - db
+    ports:
+      - 9000:3000

@@ -43,11 +43,10 @@ app.post('', (req, res) => {
   console.log(req)
   const post = req.body
   query("INSERT INTO projeto SET ?", (results) => {
-    console.log(results)
     if (results.affectedRows < 1) {
       res.status(404).json({ message: "Projeto not found" })
     } else {
-      res.json({ message: "Projeto removido" })
+      res.json({ message: "Projeto Inserido" })
     }
 
   }, { name: post.name, budget: post.budget })
