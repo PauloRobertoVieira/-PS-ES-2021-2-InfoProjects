@@ -22,23 +22,6 @@ app.get('/:id', (req, res) => {
 
 })
 
-app.delete('/:id', (req, res) => {
-  query("DELETE FROM projeto WHERE ?", (results) => {
-    if (results.affectedRows < 1) {
-      res.status(404).json({ message: "Projeto not found" })
-    } else {
-      res.json({ message: "Projeto removido" })
-    }
-
-  }, { id: req.params.id })
-})
-
-app.put('/:id', (req, res) => {
-  console.log(req.params)
-  const post = req.body
-  res.send(`UpDate post ${req.params.id}`)
-})
-
 app.post('', (req, res) => {
   console.log(req)
   const post = req.body
@@ -50,6 +33,23 @@ app.post('', (req, res) => {
     }
 
   }, { name: post.name, budget: post.budget })
+})
+
+app.put('/:id', (req, res) => {
+  console.log(req.params)
+  const post = req.body
+  res.send(`UpDate post ${req.params.id}`)
+})
+
+app.delete('/:id', (req, res) => {
+  query("DELETE FROM projeto WHERE ?", (results) => {
+    if (results.affectedRows < 1) {
+      res.status(404).json({ message: "Projeto not found" })
+    } else {
+      res.json({ message: "Projeto removido" })
+    }
+
+  }, { id: req.params.id })
 })
 
 module.exports = app
