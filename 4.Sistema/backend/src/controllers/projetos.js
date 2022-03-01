@@ -19,7 +19,6 @@ app.get('/:id', (req, res) => {
     }
 
   }, { id: req.params.id })
-
 })
 
 app.post('', (req, res) => {
