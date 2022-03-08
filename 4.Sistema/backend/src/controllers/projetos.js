@@ -3,52 +3,81 @@ const app = express.Router()
 
 const { query } = require("../db")
 
-app.get('/', (req, res) => {
-  query("SELECT * FROM projeto ORDER BY name", (projetos) => {
+const Projeto = require('../models/projeto')
+
+app.get('/', (req, res, next) => {
+  query("SELECT * FROM projetos ORDER BY name").then((projetos) => {
     res.json(projetos)
+  }).catch((error) => {
+    console.log("deu erro")
+    next(error)
   })
 })
 
 app.get('/:id', (req, res) => {
-  query("SELECT * FROM projeto WHERE ?", (projetos) => {
-    console.log(projetos)
+  query("SELECT * FROM projeto WHERE ?", { id: req.params.id }).then(projetos => {
     if (projetos.length < 1) {
       res.status(404).json({ message: "Projeto not found" })
     } else {
       res.json(projetos[0])
     }
 
-  }, { id: req.params.id })
+  }).catch((error) => {
+    console.log("Erro em listar projetos")
+    next(error)
+  })
 })
 
 app.post('', (req, res) => {
-  console.log(req)
   const post = req.body
-  query("INSERT INTO projeto SET ?", (results) => {
-    if (results.affectedRows < 1) {
-      res.status(404).json({ message: "Projeto not found" })
-    } else {
-      res.json({ message: "Projeto Inserido" })
-    }
 
-  }, { name: post.name, budget: post.budget })
+  const projeto = new Projeto(null, post.name, post.budget)
+
+  if (projeto.validar()) {
+    query("INSERT INTO projeto SET ?", { name: post.name, budget: post.budget }).then(results => {
+      if (results.affectedRows < 1) {
+        res.status(404).json({ message: "Projeto not found" })
+      } else {
+        res.json({ message: "Projeto Inserido" })
+      }
+    }).catch((error) => {
+      console.log("Erro ao criar projeto")
+      next(error)
+    })
+  } else {
+    res.status(400).json({
+      validation: projeto.validation
+    })
+  }
 })
 
 app.put('/:id', (req, res) => {
-  console.log(req.params)
-  const post = req.body
-  res.send(`UpDate post ${req.params.id}`)
+  const put = req.body
+  query("UPDATE projeto SET name=?, budget=?  WHERE id =?", [put.name, put.budget, req.params.id]).then(results => {
+    if (results.affectedRows < 1) {
+      res.status(404).json({ message: "Projeto not found" })
+    } else {
+      res.json({ message: "Projeto Alterado" })
+    }
+  }).catch((error) => {
+    console.log("Erro ao alterar projeto")
+    next(error)
+  })
 })
 
 app.delete('/:id', (req, res) => {
-  query("DELETE FROM projeto WHERE ?", (results) => {
+  const response = query("DELETE FROM projeto WHERE ?", { id: req.params.id })
+
+  response.then(results => {
     if (results.affectedRows < 1) {
       res.status(404).json({ message: "Projeto not found" })
     } else {
       res.json({ message: "Projeto removido" })
     }
-
-  }, { id: req.params.id })
+  }).catch((error) => {
+    console.log("Erro ao excluir")
+    next(error)
+  })
 })
 
 module.exports = app

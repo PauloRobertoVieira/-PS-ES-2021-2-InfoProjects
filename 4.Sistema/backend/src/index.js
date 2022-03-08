@@ -16,6 +16,11 @@ app.get('/', (req, res) => {
 
 app.use('/projetos', projetos)
 
+app.use((error, req, res, next) => {
+  console.error(error)
+  res.status(500).json({ message: "Algo está errado" })
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
