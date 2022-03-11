@@ -3,21 +3,6 @@ const { query } = require("../../db")
 const Projeto = require("../entities/projeto")
 
 class ProjetoRepositorio {
-    criar(projeto) { }
-
-    alterar(projeto) { }
-
-    listar() {
-        return query("SELECT * FROM projeto ORDER BY name").then((rows) => {
-            const projetos = [];
-            rows.forEach((row) => {
-                const projeto = new Projeto(row.id, row.name, row.budget)
-                projetos.push(projeto)
-            })
-            return projetos
-        });
-
-    }
 
     ler(projetoid) {
         return query("SELECT * FROM projeto WHERE ?", { id: projetoid }).then(projetos => {
@@ -28,8 +13,30 @@ class ProjetoRepositorio {
                 return new Projeto(row.id, row.name, row.budget)
             }
         })
-
     }
+
+    listar() {
+        return query("SELECT * FROM projeto ORDER BY name").then((rows) => {
+            const projetos = [];
+            rows.forEach((row) => {
+                const projeto = new Projeto(row.id, row.name, row.budget)
+                projetos.push(projeto)
+            })
+            return projetos
+        });
+    }
+
+    criar(projeto) {
+        return query("INSERT INTO projeto SET ?", { name: projeto.name, budget: projeto.budget }).then(results => {
+            if (results.affectedRows < 1) {
+                return false;
+            } else {
+                return true;
+            }
+        })
+    }
+
+    alterar(projeto) { }
 
     deletar(projeto) {
         return query("DELETE FROM projeto WHERE ?", { id: projeto.id }).then(results => {
@@ -40,7 +47,6 @@ class ProjetoRepositorio {
             }
         })
     }
-
 
 }
 module.exports = ProjetoRepositorio

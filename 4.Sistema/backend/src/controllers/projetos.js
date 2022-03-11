@@ -38,7 +38,7 @@ app.post('', (req, res, next) => {
   const projeto = new Projeto(null, post.name, post.budget)
 
   if (projeto.validar()) {
-    query("INSERT INTO projeto SET ?", { name: post.name, budget: post.budget }).then(results => {
+    repositorio.criar({ name: post.name, budget: post.budget }).then(results => {
       if (results.affectedRows < 1) {
         res.status(404).json({ message: "Projeto not found" })
       } else {
@@ -88,5 +88,7 @@ app.delete('/:id', (req, res, next) => {
     next(error)
   })
 })
+
+
 
 module.exports = app
