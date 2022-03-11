@@ -3,10 +3,14 @@ const app = express.Router()
 
 const { query } = require("../db")
 
-const Projeto = require('../models/projeto')
+const Projeto = require('../models/entities/projeto')
+const ProjetoRepositorio = require('../models/repositories/projeto')
+
+const repositorio = new ProjetoRepositorio()
 
 app.get('/', (req, res, next) => {
-  query("SELECT * FROM projetos ORDER BY name").then((projetos) => {
+  repositorio.listar().then((projetos) => {
+    console.log(projetos)
     res.json(projetos)
   }).catch((error) => {
     console.log("deu erro")
@@ -14,12 +18,12 @@ app.get('/', (req, res, next) => {
   })
 })
 
-app.get('/:id', (req, res) => {
-  query("SELECT * FROM projeto WHERE ?", { id: req.params.id }).then(projetos => {
-    if (projetos.length < 1) {
+app.get('/:id', (req, res, next) => {
+  repositorio.ler(req.params.id).then(projeto => {
+    if (!projeto) {
       res.status(404).json({ message: "Projeto not found" })
     } else {
-      res.json(projetos[0])
+      res.json(projeto)
     }
 
   }).catch((error) => {
@@ -28,7 +32,7 @@ app.get('/:id', (req, res) => {
   })
 })
 
-app.post('', (req, res) => {
+app.post('', (req, res, next) => {
   const post = req.body
 
   const projeto = new Projeto(null, post.name, post.budget)
@@ -51,7 +55,7 @@ app.post('', (req, res) => {
   }
 })
 
-app.put('/:id', (req, res) => {
+app.put('/:id', (req, res, next) => {
   const put = req.body
   query("UPDATE projeto SET name=?, budget=?  WHERE id =?", [put.name, put.budget, req.params.id]).then(results => {
     if (results.affectedRows < 1) {
@@ -65,14 +69,19 @@ app.put('/:id', (req, res) => {
   })
 })
 
-app.delete('/:id', (req, res) => {
-  const response = query("DELETE FROM projeto WHERE ?", { id: req.params.id })
+app.delete('/:id', (req, res, next) => {
 
-  response.then(results => {
-    if (results.affectedRows < 1) {
+  repositorio.ler(req.params.id).then((projeto) => {
+    if (!projeto) {
       res.status(404).json({ message: "Projeto not found" })
     } else {
-      res.json({ message: "Projeto removido" })
+      repositorio.deletar(projeto).then((isSuccess) => {
+        if (isSuccess) {
+          res.json({ message: "Projeto removido" })
+        } else {
+          res.status(400).json({ message: "Projeto não deletado" })
+        }
+      })
     }
   }).catch((error) => {
     console.log("Erro ao excluir")

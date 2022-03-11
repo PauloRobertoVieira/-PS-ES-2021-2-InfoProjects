@@ -18,7 +18,7 @@ app.use('/projetos', projetos)
 
 app.use((error, req, res, next) => {
   console.error(error)
-  res.status(500).json({ message: "Algo está errado" })
+  res.status(500).json({ message: error.message || "Algo está errado" })
 })
 
 app.listen(port, () => {
