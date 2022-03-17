@@ -1,7 +1,9 @@
-class Projeto {
+const EntityBase = require('./base');
+
+class Projeto extends EntityBase {
 
     constructor(id, name, budget) {
-        this.validation = [];
+        super();
         this.id = id;
         this.name = name;
         this.budget = budget;

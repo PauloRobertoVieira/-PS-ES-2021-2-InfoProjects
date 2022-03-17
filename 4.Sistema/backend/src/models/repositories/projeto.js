@@ -28,15 +28,22 @@ class ProjetoRepositorio {
 
     criar(projeto) {
         return query("INSERT INTO projeto SET ?", { name: projeto.name, budget: projeto.budget }).then(results => {
-            if (results.affectedRows < 1) {
-                return false;
-            } else {
-                return true;
+            if (results.insertId) {
+                projeto.id = results.insertId;
+                return projeto;
             }
         })
     }
 
-    alterar(projeto) { }
+    alterar(projeto) {
+        return query("UPDATE projeto SET name=?, budget=?  WHERE id =?", [projeto.name, projeto.budget, projeto.id]).then(results => {
+            if (results.affectedRows < 1) {
+                return false;
+            } else {
+                return projeto;
+            }
+        })
+    }
 
     deletar(projeto) {
         return query("DELETE FROM projeto WHERE ?", { id: projeto.id }).then(results => {

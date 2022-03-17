@@ -10,7 +10,6 @@ const repositorio = new ProjetoRepositorio()
 
 app.get('/', (req, res, next) => {
   repositorio.listar().then((projetos) => {
-    console.log(projetos)
     res.json(projetos)
   }).catch((error) => {
     console.log("deu erro")
@@ -25,7 +24,6 @@ app.get('/:id', (req, res, next) => {
     } else {
       res.json(projeto)
     }
-
   }).catch((error) => {
     console.log("Erro em listar projetos")
     next(error)
@@ -34,16 +32,10 @@ app.get('/:id', (req, res, next) => {
 
 app.post('', (req, res, next) => {
   const post = req.body
-
   const projeto = new Projeto(null, post.name, post.budget)
-
   if (projeto.validar()) {
-    repositorio.criar({ name: post.name, budget: post.budget }).then(results => {
-      if (results.affectedRows < 1) {
-        res.status(404).json({ message: "Projeto not found" })
-      } else {
-        res.json({ message: "Projeto Inserido" })
-      }
+    repositorio.criar(projeto).then(newProjets => {
+      res.status(201).json(newProjets)
     }).catch((error) => {
       console.log("Erro ao criar projeto")
       next(error)
@@ -57,12 +49,9 @@ app.post('', (req, res, next) => {
 
 app.put('/:id', (req, res, next) => {
   const put = req.body
-  query("UPDATE projeto SET name=?, budget=?  WHERE id =?", [put.name, put.budget, req.params.id]).then(results => {
-    if (results.affectedRows < 1) {
-      res.status(404).json({ message: "Projeto not found" })
-    } else {
-      res.json({ message: "Projeto Alterado" })
-    }
+  const projeto = new Projeto(req.params.id, put.name, put.budget)
+  repositorio.alterar(projeto).then((updateProjet) => {
+    res.json(updateProjet);
   }).catch((error) => {
     console.log("Erro ao alterar projeto")
     next(error)
@@ -70,7 +59,6 @@ app.put('/:id', (req, res, next) => {
 })
 
 app.delete('/:id', (req, res, next) => {
-
   repositorio.ler(req.params.id).then((projeto) => {
     if (!projeto) {
       res.status(404).json({ message: "Projeto not found" })
@@ -88,7 +76,5 @@ app.delete('/:id', (req, res, next) => {
     next(error)
   })
 })
-
-
 
 module.exports = app
