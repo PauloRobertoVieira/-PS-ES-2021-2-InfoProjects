@@ -2,7 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors')
 
-const projetos = require('./controllers/projetos')
+//const projetos = require('./controllers/projetos')
+const servicos = require('./controllers/servicos')
 
 const app = express()
 const port = 3000
@@ -14,7 +15,8 @@ app.get('/', (req, res) => {
   res.send('From Get')
 })
 
-app.use('/projetos', projetos)
+//app.use('/projetos', projetos)
+app.use('/servicos', servicos)
 
 app.use((error, req, res, next) => {
   console.error(error)
@@ -22,5 +24,5 @@ app.use((error, req, res, next) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`App listening on port ${port}`)
 })

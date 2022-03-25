@@ -7,7 +7,6 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME || 'prv_system'
 });
 
-
 function query(sql, values = {}) {
     return new Promise((resolve, reject) => {
         pool.query(sql, values, function (error, results, fields) {
