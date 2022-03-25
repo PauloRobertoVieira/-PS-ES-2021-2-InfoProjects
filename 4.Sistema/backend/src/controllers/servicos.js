@@ -34,8 +34,8 @@ app.post('', (req, res, next) => {
   const post = req.body
   const servico = new Servico(null, post.name, post.cost, post.description)
   if (servico.validar()) {
-    repositorio.criar(servico).then(newServices => {
-      res.status(201).json(newServices)
+    repositorio.criar(servico).then(newService => {
+      res.status(201).json(newService)
     }).catch((error) => {
       console.log("Erro ao criar servico")
       next(error)
