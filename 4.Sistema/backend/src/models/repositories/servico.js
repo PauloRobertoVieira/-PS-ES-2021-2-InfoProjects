@@ -10,16 +10,16 @@ class ServicoRepositorio {
                 return null;
             } else {
                 const row = servicos[0];
-                return new Servico(row.id, row.nome, row.custo, row.descricao)
+                return new Servico(row.id, row.name, row.cost, row.description)
             }
         })
     }
 
     listar() {
-        return query("SELECT * FROM servico ORDER BY nome").then((rows) => {
+        return query("SELECT * FROM servico ORDER BY name").then((rows) => {
             const servicos = [];
             rows.forEach((row) => {
-                const servico = new Servico(row.id, row.nome, row.custo, row.descricao)
+                const servico = new Servico(row.id, row.name, row.cost, row.description)
                 servicos.push(servico)
             })
             return servicos
@@ -27,7 +27,7 @@ class ServicoRepositorio {
     }
 
     criar(servico) {
-        return query("INSERT INTO servico SET ?", { nome: servico.nome, custo: servico.custo, descricao: servico.descricao }).then(results => {
+        return query("INSERT INTO servico SET ?", { name: servico.name, cost: servico.cost, description: servico.description }).then(results => {
             if (results.insertId) {
                 servico.id = results.insertId;
                 return servico;
@@ -36,7 +36,7 @@ class ServicoRepositorio {
     }
 
     alterar(servico) {
-        return query("UPDATE servico SET nome=?, custo=?, descricao=?, WHERE id =?", [servico.nome, servico.custo, servico.descricao, servico.id]).then(results => {
+        return query("UPDATE servico SET name=?, cost=?, description=?, WHERE id =?", [servico.name, servico.cost, servico.description, servico.id]).then(results => {
             if (results.affectedRows < 1) {
                 return false;
             } else {

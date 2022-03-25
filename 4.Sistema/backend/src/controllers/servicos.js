@@ -32,7 +32,7 @@ app.get('/:id', (req, res, next) => {
 
 app.post('', (req, res, next) => {
   const post = req.body
-  const servico = new Servico(null, post.nome, post.custo, post.descricao)
+  const servico = new Servico(null, post.name, post.cost, post.description)
   if (servico.validar()) {
     repositorio.criar(servico).then(newServices => {
       res.status(201).json(newServices)
@@ -49,7 +49,7 @@ app.post('', (req, res, next) => {
 
 app.put('/:id', (req, res, next) => {
   const put = req.body
-  const servico = new Servico(req.params.id, put.nome, put.custo, put.descricao)
+  const servico = new Servico(req.params.id, put.name, put.cost, put.description)
   repositorio.alterar(servico).then((updateService) => {
     res.json(updateService);
   }).catch((error) => {
