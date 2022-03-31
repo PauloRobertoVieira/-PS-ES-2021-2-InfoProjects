@@ -47,17 +47,6 @@ app.post('', (req, res, next) => {
   }
 })
 
-app.put('/:id', (req, res, next) => {
-  const put = req.body
-  const servico = new Servico(req.params.id, put.name, put.cost, put.description)
-  repositorio.alterar(servico).then((updateService) => {
-    res.json(updateService);
-  }).catch((error) => {
-    console.log("Erro ao alterar servico")
-    next(error)
-  })
-})
-
 app.delete('/:id', (req, res, next) => {
   repositorio.ler(req.params.id).then((servico) => {
     if (!servico) {
