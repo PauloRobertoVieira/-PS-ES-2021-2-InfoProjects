@@ -4,7 +4,7 @@ const cors = require('cors')
 
 const projetos = require('./controllers/projetos')
 const servicos = require('./controllers/servicos')
-//const projetos = require('./controllers/usuario')
+const usuarios = require('./controllers/usuarios')
 
 const app = express()
 const port = 3000
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 app.use('/projetos', projetos)
 app.use('/servicos', servicos)
-//app.use('/servicos', usuario)
+app.use('/usuarios', usuarios)
 
 app.use((error, req, res, next) => {
   console.error(error)
