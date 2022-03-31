@@ -35,16 +35,6 @@ class ServicoRepositorio {
         })
     }
 
-    alterar(servico) {
-        return query("UPDATE servico SET name=?, cost=?, description=?, WHERE id =?", [servico.name, servico.cost, servico.description, servico.id]).then(results => {
-            if (results.affectedRows < 1) {
-                return false;
-            } else {
-                return servico;
-            }
-        })
-    }
-
     deletar(servico) {
         return query("DELETE FROM servico WHERE ?", { id: servico.id }).then(results => {
             if (results.affectedRows < 1) {

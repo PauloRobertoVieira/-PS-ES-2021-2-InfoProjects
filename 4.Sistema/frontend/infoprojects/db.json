@@ -50,6 +50,17 @@
       "cost": 0,
       "services": [],
       "id": 7
+    },
+    {
+      "name": "Cloud Amazon",
+      "budget": "100000",
+      "category": {
+        "id": "1",
+        "name": "Infra"
+      },
+      "cost": 0,
+      "services": [],
+      "id": 8
     }
   ],
   "categories": [
