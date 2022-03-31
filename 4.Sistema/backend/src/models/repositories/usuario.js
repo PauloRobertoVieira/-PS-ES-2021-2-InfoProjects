@@ -5,7 +5,7 @@ const Usuario = require("../entities/usuario")
 class UsuarioRepositorio {
 
     ler(usuarioid) {
-        return query("SELECT * FROM projeto WHERE ?", { id: usuarioid }).then(usuarios => {
+        return query("SELECT * FROM usuario WHERE ?", { id: usuarioid }).then(usuarios => {
             if (usuarios.length < 1) {
                 return null;
             } else {
@@ -16,10 +16,10 @@ class UsuarioRepositorio {
     }
 
     listar() {
-        return query("SELECT * FROM projeto ORDER BY nome").then((rows) => {
+        return query("SELECT * FROM usuario ORDER BY nome").then((rows) => {
             const usuarios = [];
             rows.forEach((row) => {
-                const usuario = new Usuario(row.id, row.nome, row.email, row.tipo)
+                const usuario = new Usuario(row.id, row.nome, row.email, row.senha, row.tipo)
                 usuarios.push(usuario)
             })
             return usuarios
@@ -27,7 +27,7 @@ class UsuarioRepositorio {
     }
 
     criar(usuario) {
-        return query("INSERT INTO projeto SET ?", { nome: usuario.nome, email: usuario.email, senha: usuario.senha, tipo: usuario.tipo }).then(results => {
+        return query("INSERT INTO usuario SET ?", { nome: usuario.nome, email: usuario.email, senha: usuario.senha, tipo: usuario.tipo }).then(results => {
             if (results.insertId) {
                 usuario.id = results.insertId;
                 return usuario;
