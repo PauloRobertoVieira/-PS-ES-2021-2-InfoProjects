@@ -24,7 +24,7 @@ function Projects() {
     useEffect(() => {
         setTimeout(
             () => {
-                fetch('http://localhost:3000/projetos', {
+                fetch('http://localhost:5000/projects', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ function Projects() {
                             id={project.id}
                             name={project.name}
                             budget={project.budget}
-                            category={project.category?.name || ''}
+                            category={project.category.name}
                             key={project.id}
                             handleRemove={removeProject}
                         />

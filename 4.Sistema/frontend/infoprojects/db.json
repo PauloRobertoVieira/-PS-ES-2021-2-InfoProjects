@@ -35,9 +35,16 @@
         "name": "Design"
       },
       "name": "Terceirizar UX",
-      "budget": "10000",
-      "cost": 0,
-      "services": [],
+      "budget": "60000",
+      "cost": 4000,
+      "services": [
+        {
+          "name": "contratar profissional UX",
+          "cost": "4000",
+          "description": "Contratar profissional para avaliação e melhoria de layout da páginas",
+          "id": "3129e4fd-ff1e-4a67-a741-2249cd9cb509"
+        }
+      ],
       "id": 6
     },
     {
@@ -50,17 +57,6 @@
       "cost": 0,
       "services": [],
       "id": 7
-    },
-    {
-      "name": "Cloud Amazon",
-      "budget": "100000",
-      "category": {
-        "id": "1",
-        "name": "Infra"
-      },
-      "cost": 0,
-      "services": [],
-      "id": 8
     }
   ],
   "categories": [
