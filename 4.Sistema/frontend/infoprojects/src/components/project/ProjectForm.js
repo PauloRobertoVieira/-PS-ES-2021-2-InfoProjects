@@ -8,8 +8,20 @@ import styles from './ProjectForm.module.css'
 
 const categories = [
     {
+        id: "Infra",
+        name: "Infra"
+    },
+    {
         id: "Desenvolvimento",
         name: "Desenvolvimento"
+    },
+    {
+        id: "Design",
+        name: "Design"
+    },
+    {
+        id: "Planejamento",
+        name: "Planejamento"
     }
 ]
 
