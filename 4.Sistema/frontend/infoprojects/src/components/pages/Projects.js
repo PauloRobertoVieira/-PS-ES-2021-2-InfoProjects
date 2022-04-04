@@ -9,6 +9,8 @@ import LinkButton from "../layout/LinkButton"
 import styles from './Projects.module.css'
 import ProjectCard from "../project/ProjectCard"
 
+import { request } from '../../utils'
+
 function Projects() {
 
     const [projects, setProjects] = useState([])
@@ -22,31 +24,14 @@ function Projects() {
     }
 
     useEffect(() => {
-        setTimeout(
-            () => {
-                fetch('http://localhost:5000/projects', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                    .then(resp => resp.json())
-                    .then((data) => {
-                        setProjects(data)
-                        setRemoveLoanding(true)
-                    })
-                    .catch((err) => console.log(err))
-            }, 1000)
+        request("/projetos").then((data) => {
+            setProjects(data)
+            setRemoveLoanding(true)
+        })
     }, [])
 
     function removeProject(id) {
-        fetch(`http://localhost:5000/projects/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(resp => resp.json())
+        request(`/projetos/${id}`, { method: 'DELETE' })
             .then(() => {
                 setProjects(projects.filter((project) => project.id !== id))
                 setProjectMessage("Projeto removido com sucesso!")
@@ -68,7 +53,7 @@ function Projects() {
                             id={project.id}
                             name={project.name}
                             budget={project.budget}
-                            category={project.category.name}
+                            category={project.category || "Desconhecida"}
                             key={project.id}
                             handleRemove={removeProject}
                         />

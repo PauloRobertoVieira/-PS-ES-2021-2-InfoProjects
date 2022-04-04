@@ -10,7 +10,7 @@ class UsuarioRepositorio {
                 return null;
             } else {
                 const row = usuarios[0];
-                return new Usuario(row.id, row.nome, row.email, row.senha, row.tipo)
+                return new Usuario(row.id, row.nome, row.email, null, row.tipo)
             }
         })
     }

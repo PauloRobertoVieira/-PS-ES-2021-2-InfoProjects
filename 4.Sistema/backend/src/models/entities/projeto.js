@@ -7,6 +7,7 @@ class Projeto extends EntityBase {
         this.id = id;
         this.name = name;
         this.budget = budget;
+
     }
 
     validar() {
